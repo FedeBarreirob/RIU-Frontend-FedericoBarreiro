@@ -1,59 +1,40 @@
-# HeroesApp
+# Heroes App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.2.
+## Descripción
+Heroes App es una aplicación que permite gestionar una lista de héroes, ofreciendo funcionalidades para crear, visualizar, filtrar, editar y eliminar héroes de manera sencilla.
 
-## Development server
+## Características
+- **Crear héroes**: Agrega nuevos héroes con su respectiva información.
+- **Visualizar héroes**: Consulta la lista completa de héroes.
+- **Filtrar héroes**: Busca héroes según su nombre.
+- **Editar héroes**: Modifica la información de cualquier héroe existente.
+- **Eliminar héroes**: Borra héroes.
 
-To start a local development server, run:
+## Tecnologías utilizadas
+- **Frontend**: Angular 19 con Angular Material y Tailwind CSS
 
-```bash
-ng serve
-```
+## Instalación
+1. Clona este repositorio:
+   ```bash
+   git clone https://github.com/tu-usuario/heroes-app.git
+   ```
+2. Entra en la carpeta del proyecto:
+   ```bash
+   cd heroes-app
+   ```
+3. Instala las dependencias del frontend y backend:
+   ``` npm install
+   ```
+4. Inicia el frontend:
+   ```npm start
+   ```
+5. Accede a la aplicación en tu navegador: `http://localhost:4200`
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Uso
+1. En la página principal, puedes ver la lista de héroes disponibles.
+2. Usa la barra de búsqueda para filtrar héroes por nombre.
+3. Para agregar un nuevo héroe, haz clic en "Agregar Héroe" y completa el formulario.
+4. Para editar un héroe, haz clic en el icono de editar.
+5. Para eliminar un héroe, haz clic en el icono de eliminar.
+6. Para entrar a la vista detallada de un heroe, haz clic en cualquiera de ellos.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
