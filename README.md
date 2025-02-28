@@ -23,10 +23,12 @@ Heroes App es una aplicación que permite gestionar una lista de héroes, ofreci
    cd heroes-app
    ```
 3. Instala las dependencias del frontend y backend:
-   ``` npm install
+   ```bash
+   npm install
    ```
 4. Inicia el frontend:
-   ```npm start
+   ```bash
+   npm start
    ```
 5. Accede a la aplicación en tu navegador: `http://localhost:4200`
 
