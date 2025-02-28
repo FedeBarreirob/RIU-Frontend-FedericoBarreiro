@@ -1,0 +1,68 @@
+<h2 mat-dialog-title class="text-xl font-bold">
+    {{ heroData() ? 'Editar Héroe' : 'Crear Héroe' }}
+</h2>
+
+<form [formGroup]="heroForm" class="space-y-4">
+    <mat-dialog-content class="space-y-4">
+        <mat-form-field class="w-full">
+            <mat-label>Nombre del héroe</mat-label>
+            <input matInput formControlName="name" />
+            @if(heroForm.get('name')?.hasError('maxlength')){
+            <mat-error>
+                El nombre no puede tener más de 24 caracteres.
+            </mat-error>
+            }
+            @if(heroForm.get('name')?.hasError('required')) {
+            <mat-error>El nombre es requerido</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field class="w-full">
+            <mat-label>Descripción</mat-label>
+            <input matInput formControlName="description" />
+            @if(heroForm.get('description')?.hasError('maxlength')){
+            <mat-error>
+                La descripción no puede tener más de 50 caracteres.
+            </mat-error>
+            }
+            @if(heroForm.get('description')?.hasError('required'))
+            {
+            <mat-error>El nombre es requerido</mat-error>
+            }
+        </mat-form-field>
+        <mat-form-field class="w-full">
+            <mat-label>Poder</mat-label>
+            <input matInput formControlName="power" />
+            @if(heroForm.get('power')?.hasError('maxlength')){
+            <mat-error>
+                El poder no puede tener más de 10 caracteres.
+            </mat-error>
+            }
+            @if(heroForm.get('power')?.hasError('required')) {
+            <mat-error>El poder es requerido</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-label>Imagen del héroe</mat-label>
+        <input type="file" (change)="onFileSelected($event)" accept="image/jpeg, image/png, image/webp"
+        class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        @if(imagePreview){
+        <img [src]="imagePreview" alt="Vista previa" class="w-40 h-40 mt-4 rounded-lg border">
+        }
+        @if(heroForm.get('image')?.invalid) {
+        <mat-error>La imagen es requerida</mat-error>
+        }
+
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="flex justify-end gap-3">
+        <button mat-flat-button
+            class="bg-primary text-white py-2 px-4 rounded-lg shadow hover:bg-blue-600 transition duration-300 ease-in-out cursor-pointer"
+            (click)="close()">Cancelar</button>
+        <button [disabled]="!heroForm.valid" mat-raised-button color="primary" class="text-white py-2 px-4 rounded-lg shadow transition duration-300 ease-in-out cursor-pointer 
+            disabled:bg-gray-400 disabled:cursor-not-allowed disabled:opacity-50" mat-flat-button (click)="saveHero()">
+            {{ heroData() ? 'Guardar' : 'Crear' }}
+        </button>
+
+    </mat-dialog-actions>
+</form>
