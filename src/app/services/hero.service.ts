@@ -1,12 +1,14 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { Hero } from '@app/interfaces/hero.interface';
 import { v4 as uuidv4 } from 'uuid';
+import { LoadingService } from './loading.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HeroService {
   private readonly STORAGE_KEY = 'heroes';
+  loadingService = inject(LoadingService);
   heroes = signal<Hero[]>(this.loadFromLocalStorage());
 
   loadFromLocalStorage(): Hero[] {
@@ -20,6 +22,7 @@ export class HeroService {
       ...hero
     };
     this.heroes.update(heroes => [...heroes, newHero]);
+    this.loadingService.simulateFetching();
     this.saveInLocalStorage();
   }
 
@@ -27,11 +30,13 @@ export class HeroService {
     this.heroes.update(heroes =>
       heroes.map(hero => (hero.id === id ? { ...hero, ...updatedHero } : hero))
     );
+    this.loadingService.simulateFetching();
     this.saveInLocalStorage();
   }
 
   removeHero(id: string): void {
     this.heroes.update(heroes => heroes.filter(hero => hero.id !== id));
+    this.loadingService.simulateFetching();
     this.saveInLocalStorage();
   }
 
