@@ -1,0 +1,32 @@
+<div class="p-6 space-y-6 rounded-lg shadow-md">
+    <div class="flex items-center space-x-4 mb-4">
+        <mat-label class="text-lg font-semibold">Filtrar</mat-label>
+        <input (keyup)="setFilterText($event)" matInput placeholder="Buscar por nombre"
+            class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+    </div>
+
+    <div class="flex justify-end mb-4">
+        <button (click)="addHero()"
+            class="text-white py-2 px-4 rounded-lg shadow transition duration-300 ease-in-out cursor-pointer">
+            Agregar Héroe
+        </button>
+    </div>
+
+    <div class="min-h-[400px] flex justify-center">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            @if(paginatedHeroes().length === 0) {
+            <div class="col-span-4 flex justify-center items-center">
+                No hay héroes para mostrar.
+            </div>
+            }@else {
+            @for(hero of paginatedHeroes();track hero.id){
+            <app-hero-card [hero]="hero" [listView]="true"></app-hero-card>
+            }
+            }
+        </div>
+    </div>
+
+    <mat-paginator [length]="heroes().length" [pageSize]="pageSize" [pageSizeOptions]="[4, 8, 12]"
+        (page)="onPageChange($event)">
+    </mat-paginator>
+</div>

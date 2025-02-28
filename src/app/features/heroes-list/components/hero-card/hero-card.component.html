@@ -1,0 +1,27 @@
+<div class="bg-[#1d1d1d] p-6 rounded-lg h-[500px] overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 ease-in-out transform relative"
+    [ngClass]="{ 'hover:bg-[#282828] cursor-pointer': listView() }" [routerLink]="[listView() ? hero().id: null]">
+    <div class="absolute right-2 top-2 gap-2 flex">
+        <mat-icon matTooltip="Editar" mat-icon-button (click)="editHero($event)"
+            class="transition duration-200 ease-in-out cursor-pointer">
+            edit
+        </mat-icon>
+        <mat-icon matTooltip="Eliminar" mat-icon-button (click)="deleteHero($event)"
+            class="transition duration-200 ease-in-out cursor-pointer">
+            delete
+        </mat-icon>
+    </div>
+
+    <img [src]="hero().image" alt="Imagen de {{ hero().name }}"
+        class="w-full h-72 max-w-md border-4 border-gray-600 rounded-lg mx-auto mt-4">
+
+    <div class="flex justify-between items-center">
+        <h3 class="text-xl font-semibold text-white mt-4 text-start">{{ hero().name }}</h3>
+        <p class="bg-yellow-500 py-1 px-4 rounded-full text-sm mt-2 text-start">{{ hero().power }}</p>
+    </div>
+
+    <p class="font-semibold text-white mt-4 text-start break-words">
+        {{ hero().description }}
+    </p>
+
+    <p class="text-gray-500 text-xs absolute bottom-2 right-2">Creado el: {{hero().createdAt | date: 'dd/MM/yyyy'}}</p>
+</div>
