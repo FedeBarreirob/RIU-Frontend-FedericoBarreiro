@@ -8,6 +8,7 @@ import { Hero } from '@app/interfaces/hero.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { HeroService } from '@app/services/hero.service';
 import { of } from 'rxjs';
+import Swal from 'sweetalert2';
 
 describe('HeroCardComponent', () => {
   let component: HeroCardComponent;
@@ -24,10 +25,10 @@ describe('HeroCardComponent', () => {
     createdAt: new Date(),
   };
 
-  
+
   beforeEach(async () => {
     mockDialog = jasmine.createSpyObj('MatDialog', ['open']);
-    mockHeroService = jasmine.createSpyObj('HeroService', ['removeHero', 'editHero']);
+    mockHeroService = jasmine.createSpyObj('HeroService', ['editHero']);
 
     await TestBed.configureTestingModule({
       imports: [HeroCardComponent],
@@ -48,7 +49,7 @@ describe('HeroCardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
+
   it('should show hero data', () => {
     const nameElement = fixture.debugElement.query(By.css('h3')).nativeElement;
     const powerElement = fixture.debugElement.query(By.css('p.bg-yellow-500')).nativeElement;
@@ -74,12 +75,10 @@ describe('HeroCardComponent', () => {
     expect(mockHeroService.editHero).toHaveBeenCalledWith(mockHero.id, { name: 'Batman', power: 'Detective' });
   });
 
-
-  it('should delete a hero', () => {
-    spyOn(window, 'confirm').and.returnValue(true);
-
+  it('should open SweetAlert modal when deleteHero is calle', () => {
+    let swalSpy = spyOn(Swal, 'fire').and.returnValue(Promise.resolve({ isConfirmed: false, isDenied: false, isDismissed: true }));
     component.deleteHero(new Event('click'));
-
-    expect(mockHeroService.removeHero).toHaveBeenCalledWith(mockHero.id);
+    expect(swalSpy).toHaveBeenCalled();
   });
+
 });

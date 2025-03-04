@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { exampleHero } from '@app/interfaces/hero.interface';
 import { By } from '@angular/platform-browser';
+import Swal from 'sweetalert2';
 
 describe('HeroDetailComponent', () => {
   let component: HeroDetailComponent;
@@ -20,7 +21,7 @@ describe('HeroDetailComponent', () => {
   let heroService: HeroService;
 
   beforeEach(async () => {
-    mockHeroService = jasmine.createSpyObj('HeroService', ['getHero', 'editHero', 'removeHero']);
+    mockHeroService = jasmine.createSpyObj('HeroService', ['getHero', 'editHero']);
     mockRouter = jasmine.createSpyObj('Router', ['navigate']);
     mockDialog = jasmine.createSpyObj('MatDialog', ['open']);
     mockLocation = jasmine.createSpyObj('Location', ['back']);
@@ -66,21 +67,17 @@ describe('HeroDetailComponent', () => {
     expect(mockLocation.back).toHaveBeenCalled();
   });
 
-  it('should delete the hero when confirmed', () => {
-    mockHeroService.getHero.and.returnValue(mockHero);
-    spyOn(window, 'confirm').and.returnValue(true);
-    
+  it('should open SweetAlert modal when deleteHero is calle', () => {
+    let swalSpy = spyOn(Swal, 'fire').and.returnValue(Promise.resolve({ isConfirmed: false, isDenied: false, isDismissed: true }));
     component.deleteHero();
-    
-    expect(window.confirm).toHaveBeenCalledWith('Estás seguro de eliminar este heroe?');
-    expect(mockLocation.back).toHaveBeenCalled();
+    expect(swalSpy).toHaveBeenCalled();
   });
 
   it('should open the edit modal when clicking the edit button', () => {
     const editButton = fixture.debugElement.query(By.css('[data-testid="edit-button"]'));
-    
+
     editButton.triggerEventHandler('click', null);
-    
+
     spyOn(component, 'editHero');
     component.editHero();
     expect(component.editHero).toHaveBeenCalled();
