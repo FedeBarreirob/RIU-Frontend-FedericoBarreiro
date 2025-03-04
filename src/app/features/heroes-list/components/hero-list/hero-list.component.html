@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <mat-paginator [length]="heroes().length" [pageSize]="pageSize" [pageSizeOptions]="[4, 8, 12]"
+    <mat-paginator [length]="filterText() ? paginatedHeroes().length : heroes().length" [pageSize]="pageSize" [pageSizeOptions]="[4, 8, 12]"
         (page)="onPageChange($event)">
     </mat-paginator>
 </div>
