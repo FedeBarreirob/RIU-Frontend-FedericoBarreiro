@@ -35,8 +35,8 @@ export class HeroDetailComponent {
 
   editHero() {
     let dialogRef = this.dialog.open(HeroDialogComponent);
-    dialogRef.componentInstance.heroData.set(this.hero());
-    dialogRef.afterClosed().subscribe((savedHero: Hero) => {
+    dialogRef?.componentInstance.heroData.set(this.hero());
+    dialogRef?.afterClosed().subscribe((savedHero: Hero) => {
       if (savedHero) {
         this.heroService.editHero(this.hero()?.id || '', savedHero);
       }
