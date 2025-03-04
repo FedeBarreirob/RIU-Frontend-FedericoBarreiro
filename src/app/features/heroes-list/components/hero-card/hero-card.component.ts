@@ -7,7 +7,7 @@ import { Hero } from '@app/interfaces/hero.interface';
 import { HeroService } from '@app/services/hero.service';
 import { MatDialog } from '@angular/material/dialog';
 import { HeroDialogComponent } from '../hero-dialog/hero-dialog.component';
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-hero-card',
   imports: [MatIconModule, MatTooltipModule, DatePipe, RouterLink, CommonModule],
@@ -33,9 +33,20 @@ export class HeroCardComponent {
 
   deleteHero(event: Event) {
     event.stopPropagation();
-    const confirmDelete = window.confirm('Estás seguro de eliminar este heroe?');
-    if (confirmDelete) {
-      this.heroService.removeHero(this.hero().id);
-    }
+    Swal.fire({
+      title: "¿Eliminar heroe?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Eliminar",
+      background: "#0F0F0F"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.heroService.removeHero(this.hero().id);
+      }
+    });
   }
 }
