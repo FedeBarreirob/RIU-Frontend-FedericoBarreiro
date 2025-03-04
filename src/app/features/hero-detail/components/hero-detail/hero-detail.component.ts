@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HeroDialogComponent } from '@app/features/heroes-list/components/hero-dialog/hero-dialog.component';
 import { Hero } from '@app/interfaces/hero.interface';
 import { HeroService } from '@app/services/hero.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-hero-detail',
@@ -43,13 +44,24 @@ export class HeroDetailComponent {
   }
 
   deleteHero() {
-    const confirmDelete = window.confirm('Estás seguro de eliminar este heroe?');
-    if (confirmDelete) {
-      const heroId = this.hero()?.id;
-      if (heroId) {
-        this.heroService.removeHero(heroId);
+    Swal.fire({
+      title: "¿Eliminar heroe?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Eliminar",
+      background: "#0F0F0F"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const heroId = this.hero()?.id;
+        if (heroId) {
+          this.heroService.removeHero(heroId);
+        }
+        this.goBack();
       }
-      this.goBack();
-    }
+    });
   }
 }
