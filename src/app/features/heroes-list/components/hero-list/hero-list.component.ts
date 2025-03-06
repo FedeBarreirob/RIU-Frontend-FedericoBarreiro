@@ -47,4 +47,8 @@ export class HeroListComponent {
     this.pageSize.set(event.pageSize);
     this.currentPage.set(event.pageIndex);
   }
+
+  filteredHeroesLength(){
+    return this.heroes().filter(hero => hero.name.toLowerCase().includes(this.filterText().toLowerCase())).length;
+  }
 }
