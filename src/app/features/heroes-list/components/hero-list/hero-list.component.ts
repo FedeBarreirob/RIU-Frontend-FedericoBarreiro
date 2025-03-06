@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, ViewChild } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table'
@@ -18,6 +18,7 @@ import { HeroDialogComponent } from '@app/features/heroes-list/components/hero-d
   styleUrl: './hero-list.component.css'
 })
 export class HeroListComponent {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   heroService = inject(HeroService);
   dialog = inject(MatDialog);
   displayedColumns: string[] = ['name', 'power', 'actions'];
@@ -32,6 +33,12 @@ export class HeroListComponent {
     const input = event.target as HTMLInputElement;
     const filterText = input.value;
     this.filterText.set(filterText);
+    this.currentPage.set(0);
+
+    if (this.paginator) {
+      this.paginator.pageIndex = 0;
+      this.paginator.length = this.filteredHeroesLength();
+    }
   }
 
   addHero() {
